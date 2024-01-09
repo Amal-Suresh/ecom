@@ -53,17 +53,24 @@ const editCategory = async (req, res) => {
 
 // ------------------------------------------------list Catetogy------------------------------------------------
 
+
 const listCategory = async (req, res) => {
     try {
         console.log("entered category listing")
-        const updatedCategory = await Category.updateOne({ _id: req.query.id }, { $set: { isBlocked: true } })
-        res.status(200).json({ message: "successfully listed" })
-
+        const updatedCategory = await Category.updateOne({ _id: req.query.id })
+        updatedCategory=!isBlocked
+        const saveData=await updatedCategory.save()
+        if(saveData){
+            res.status(200).json({ message: "status changed" ,success:true })
+        }else{
+            res.status(404).json({ message: "status not changed",success:false  })
+        }
     } catch (error) {
         console.log("error : ", error.message)
 
     }
 }
+
 
 // ------------------------------------------------unlist Catetogy------------------------------------------------
 
