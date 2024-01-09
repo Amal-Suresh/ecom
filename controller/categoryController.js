@@ -16,7 +16,7 @@ const addCategory = async (req, res) => {
         const image = result.secure_url
         const public_id = result.public_id
         const CategoryDetails = new Category({
-            name: req.body.name,
+            name: req.body.category,
             image: { image: image, public_id: public_id }
         })
         CategoryDetails.save()
