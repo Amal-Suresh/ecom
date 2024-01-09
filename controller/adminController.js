@@ -2,6 +2,24 @@ const Admin = require('../model/adminModel')
 const jwt = require('jsonwebtoken')
 const User = require('../model/userModel')
 
+const createAdmin=async(req,res)=>{
+    try {
+        const { mobile,password } = req.body
+        const newAdmin = new Admin({
+            mobile,
+            password
+        })
+        const saveAdminData = await newAdmin.save()
+        if(saveAdminData){
+            res.status(200).send({message:"adminCreated Sucessfully", sucess:true})
+        }else{
+            res.status(404).send({message:"admin not created", sucess:false})
+        }    
+    } catch (error) {
+        res.status(500).send({message:"someting went wrong", sucess:false})       
+    }
+}
+
 const adminLogin = async (req, res) => {
     try {
         const { mobile, password } = req.body
@@ -83,5 +101,6 @@ module.exports = {
     adminLogin,
     checkIfAdmin,
     getUserList,
-    blockUnblockUser
+    blockUnblockUser,
+    createAdmin
 }
