@@ -22,7 +22,7 @@ const storage = multer.diskStorage({
   const upload = multer({ storage: storage });
 
 adminRoute.post('/checkIfAdmin',adminController.checkIfAdmin)
-adminRoute.post('/createAdmin',adminController.createAdmin)
+// adminRoute.post('/createAdmin',adminController.createAdmin)
 adminRoute.post('/login',adminController.adminLogin)
 adminRoute.post('/addProduct',upload.single('image'),productController.addProduct)
 adminRoute.delete('/deleteProduct',productController.deleteProduct)
