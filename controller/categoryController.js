@@ -59,14 +59,12 @@ const editCategory = async (req, res) => {
 const listCategory = async (req, res) => {
     try {
         console.log("entered category listing")
-        const updatedCategory = await Category.updateOne({ _id: req.query.id })
-        updatedCategory=!isBlocked
-        const saveData=await updatedCategory.save()
-        if(saveData){
-            res.status(200).json({ message: "status changed" ,success:true })
-        }else{
-            res.status(404).json({ message: "status not changed",success:false  })
-        }
+        const data = await Category.findOne({_id:req.query.id})
+        isBlockedVal = data.isBlocked
+        console.log("isBlocked : ",isBlockedVal)
+        console.log("data : ",data)
+        const updatedCategory = await Category.updateOne({ _id: req.query.id },{$set:{isBlocked:!isBlockedVal}})
+        res.status(200).json({ message: "status changed" ,success:true })
     } catch (error) {
         console.log("error : ", error.message)
 
@@ -74,21 +72,7 @@ const listCategory = async (req, res) => {
 }
 
 
-// ------------------------------------------------unlist Catetogy------------------------------------------------
-
-const unlistCategory = async (req, res) => {
-    try {
-        console.log("entered category unlisting")
-        const updatedCategory = await Category.updateOne({ _id: req.query.id }, { $set: { isBlocked: false } })
-        res.status(200).json({ message: "successfully unlisted" })
-
-    } catch (error) {
-        console.log("error : ", error.message)
-
-    }
-}
-
-// ------------------------------------------------unlist Catetogy------------------------------------------------
+// ------------------------------------------------delete Catetogy------------------------------------------------
 
 const deleteCategory = async (req, res) => {
     try {
