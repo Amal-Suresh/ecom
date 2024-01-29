@@ -104,7 +104,6 @@ module.exports = {
     addCategory,
     editCategory,
     listCategory,
-    unlistCategory,
     deleteCategory,
     getCategory
 }
