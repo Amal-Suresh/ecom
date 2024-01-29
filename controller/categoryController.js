@@ -94,7 +94,7 @@ const getCategory = async (req, res) => {
         console.log("entered getCategory")
         const getCategory = await Category.find()
         console.log("getCategory : ",getCategory)
-        res.status(200).json({ message: "successfully deleted",getCategory})
+        res.status(200).json({ message: "Category list fetched",getCategory})
     } catch (error) {
         console.log("error : ", error.message)
 
