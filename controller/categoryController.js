@@ -19,7 +19,7 @@ const addCategory = async (req, res) => {
             name: req.body.category,
             image: { image: image, public_id: public_id }
         })
-        const category = CategoryDetails.save()
+        const category = await CategoryDetails.save()
         res.status(200).json({ message: "successfully category added",category })
     } catch (error) {
         console.log("error : ", error.message)
