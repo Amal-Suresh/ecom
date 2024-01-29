@@ -42,7 +42,7 @@ const editCategory = async (req, res) => {
             const result = await cloudinary.uploader.upload(req.file.path, { folder: 'category Image' });
             image = result.secure_url
             public_id = result.public_id
-            const updatedCategory = await Category.updateOne({ _id: req.query.id }, { $set: { name: req.body.name,  'image.image': req.body.image ,"image.public_id":public_id} })
+            const updatedCategory = await Category.updateOne({ _id: req.query.id }, { $set: { name: req.body.name,  'image.image': image ,"image.public_id": public_id } })
         } else {
             const updatedCategory = await Category.updateOne({ _id: req.query.id }, { $set: { name: req.body.name } })
         }
