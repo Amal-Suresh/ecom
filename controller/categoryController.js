@@ -9,18 +9,20 @@ const addCategory = async (req, res) => {
         const existingCategory = await Category.findOne({ name: req.body.category })
         if (existingCategory) {
             res.status(200).json({ message: "Category already Exists" })
-        }
-        const imageData = req.file
+        }else{
+            const imageData = req.file
 
-        const result = await cloudinary.uploader.upload(imageData.path, { folder: 'category Image' });
-        const image = result.secure_url
-        const public_id = result.public_id
-        const CategoryDetails = new Category({
-            name: req.body.category,
-            image: { image: image, public_id: public_id }
-        })
-        const category = await CategoryDetails.save()
-        res.status(200).json({ message: "successfully category added",category })
+            const result = await cloudinary.uploader.upload(imageData.path, { folder: 'category Image' });
+            const image = result.secure_url
+            const public_id = result.public_id
+            const CategoryDetails = new Category({
+                name: req.body.category,
+                image: { image: image, public_id: public_id }
+            })
+            const category = await CategoryDetails.save()
+            res.status(200).json({ message: "successfully category added",category })
+        }
+  
     } catch (error) {
         console.log("error : ", error.message)
     }
